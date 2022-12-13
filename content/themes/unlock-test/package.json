@@ -1,0 +1,51 @@
+{
+  "name": "unlock-test",
+  "description": "A minimal theme for the Ghost publishing platform integrated with Unlock Protocol",
+  "demo": "",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Danny Thomx",
+    "email": "dannithomx@gmail.com"
+  },
+  "keywords": [
+    "ghost",
+    "unlock",
+    "unlock-protocol",
+    "theme",
+    "ghost-theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blahkheart/ghost-unlock-theme.git"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "config": {
+    "posts_per_page": 3,
+    "image_sizes": {
+      "xxs": {
+        "width": 30
+      },
+      "xs": {
+        "width": 100
+      },
+      "s": {
+        "width": 300
+      },
+      "m": {
+        "width": 600
+      },
+      "l": {
+        "width": 1000
+      },
+      "xl": {
+        "width": 2000
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{{!< default}}
+<main class="container">
+    <div class="columns is-multiline">
+        {{#foreach posts}}
+            <div class="column is-half">
+                {{> post_card}}
+            </div>
+        {{/foreach}}
+    </div>
+</main>
+<div class="container">
+    {{pagination}}
+</div>
+{{!-- {{#if @labs.subscribers}} --}}
+<section class="section">
+  <div class="container">
+    {{> subscribe_form}}
+  </div>
+</section>
+{{!-- {{/if}} --}}

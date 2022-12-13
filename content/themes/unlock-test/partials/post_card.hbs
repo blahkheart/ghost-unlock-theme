@@ -1,0 +1,25 @@
+<article class="card">
+    {{#if feature_image}}
+    <div class="card-image">
+        <figure class="image is-4by3">
+            <img src={{feature_image}} alt={{title}}/>
+        </figure>
+    </div>
+    {{/if}}
+    <div class="card-content">
+        <h1 class="title is-4"><a href="{{url}}">{{title}}</a></h1>
+        <div class="content">
+            <p>
+                {{#if meta_description}}
+                  {{meta_description}}
+                {{else}}
+                    {{excerpt words="40"}}...
+                {{/if}}
+            </p>
+            <p>
+                {{authors}} in {{tags}} on
+                <time>{{date}}</time>
+            </p>
+        </div>
+    </div>
+</article>
