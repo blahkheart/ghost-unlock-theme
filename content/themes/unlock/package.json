@@ -174,5 +174,10 @@
     "extends": [
       "@tryghost:theme"
     ]
+  },
+  "dependencies": {
+    "@tryghost/admin-api": "^1.13.2",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2"
   }
 }

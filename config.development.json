@@ -11,7 +11,15 @@
     }
   },
   "mail": {
-    "transport": "Direct"
+    "transport": "SMTP",
+    "options": {
+      "host": "smtp.mailtrap.io",
+      "port": 2525,
+      "auth": {
+        "user": "de9546c556f63a",
+        "pass": "a68eee6ddc87d0"
+      }
+    }
   },
   "logging": {
     "transports": [

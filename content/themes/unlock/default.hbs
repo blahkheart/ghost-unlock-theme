@@ -11,10 +11,12 @@
 
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
-
+    <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
+
     {{ghost_head}}
 
 </head>
@@ -53,7 +55,8 @@
                     <button class="gh-search gh-icon-btn" data-ghost-search>{{> "icons/search"}}</button>
                     {{#unless @member}}
                         {{#unless @site.members_invite_only}}
-                            <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                            {{> "auth-btn"}}
+                            {{!-- <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Subscribe</a> --}}
                         {{else}}
                             <a class="gh-head-button" href="#/portal/signin" data-portal="signin">Login</a>
                         {{/unless}}
@@ -80,7 +83,6 @@
             <div><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
         </div>
     </footer>
-
 </div>
 {{!-- /.viewport --}}
 
@@ -91,6 +93,10 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous">
 </script>
+{{!-- Ethersjs --}}
+<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript">
+</script>
+
 <script src="{{asset "built/casper.js"}}"></script>
 <script>
 $(document).ready(function () {
@@ -102,6 +108,9 @@ $(document).ready(function () {
     $(".gh-content").fitVids();
 });
 </script>
+{{!-- Custom javascript --}}
+<script src="{{asset "js/auth-modal.js"}}"></script>
+<script src="{{asset "js/signinwithunlock.js"}}"></script>
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
