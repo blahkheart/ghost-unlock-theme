@@ -11,7 +11,7 @@ $(document).ready(function () {
       "https://app.unlock-protocol.com/checkout"
     );
     const signupRedirectURI = new URL(
-      "https://fee8-102-36-149-129.eu.ngrok.io/login/verify"
+      "https://ac58-197-210-54-211.eu.ngrok.io/signup"
     );
     const clientId = signupRedirectURI.hostname;
     signinWithUnlock.searchParams.append("client_id", clientId);

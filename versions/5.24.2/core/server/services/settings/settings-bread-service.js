@@ -344,7 +344,7 @@ class SettingsBREADService {
     /**
      * @private
      */
-    async sendEmailVerificationMagicLink({email, key}) {
+    async sendEmailVerificationMagicLink({email, key, address}) {
         const [,toDomain] = email.split('@');
 
         let fromEmail = `noreply@${toDomain}`;
@@ -369,7 +369,7 @@ class SettingsBREADService {
             }
         };
 
-        return this.magicLinkService.sendMagicLink({email, tokenData: {key, value: email}});
+        return this.magicLinkService.sendMagicLink({email, tokenData: {key, value: email}, address});
     }
 }
 

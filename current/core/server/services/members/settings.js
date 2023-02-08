@@ -22,8 +22,8 @@ function createSettingsInstance() {
     };
 
     return {
-        getEmailFromToken,
-        getAdminRedirectLink
+      getEmailFromToken,
+      getAdminRedirectLink
     };
 }
 

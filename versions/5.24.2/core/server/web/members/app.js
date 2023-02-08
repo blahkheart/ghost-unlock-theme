@@ -12,6 +12,7 @@ const errorHandler = require('@tryghost/mw-error-handler');
 const config = require('../../../shared/config');
 const {http} = require('@tryghost/api-framework');
 const api = require('../../api').endpoints;
+const {getAddressFromRequest} = require("../../services/members/middleware")
 
 const commentRouter = require('../comments');
 
@@ -54,14 +55,16 @@ module.exports = function setupMembersApp() {
 
     // NOTE: this is wrapped in a function to ensure we always go via the getter
     membersApp.post(
-        '/api/send-magic-link',
-        bodyParser.json(),
-        // Prevent brute forcing email addresses (user enumeration)
-        shared.middleware.brute.membersAuthEnumeration,
-        // Prevent brute forcing passwords for the same email address
-        shared.middleware.brute.membersAuth,
-        (req, res, next) => membersService.api.middleware.sendMagicLink(req, res, next)
+      "/api/send-magic-link",
+      bodyParser.json(),
+      // Prevent brute forcing email addresses (user enumeration)
+      // shared.middleware.brute.membersAuthEnumeration,
+      // Prevent brute forcing passwords for the same email address
+      // shared.middleware.brute.membersAuth,
+      getAddressFromRequest,
+      (req, res, next) => membersService.api.middleware.sendMagicLink(req, res, next)
     );
+      
     membersApp.post('/api/create-stripe-checkout-session', (req, res, next) => membersService.api.middleware.createCheckoutSession(req, res, next));
     membersApp.post('/api/create-stripe-update-session', (req, res, next) => membersService.api.middleware.createCheckoutSetupSession(req, res, next));
     membersApp.put('/api/subscriptions/:id', (req, res, next) => membersService.api.middleware.updateSubscription(req, res, next));
