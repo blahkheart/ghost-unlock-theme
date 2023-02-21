@@ -11,7 +11,7 @@ $(document).ready(function () {
       "https://app.unlock-protocol.com/checkout"
     );
     const signupRedirectURI = new URL(
-      "https://ac58-197-210-54-211.eu.ngrok.io/signup"
+      "https://598c-102-36-149-129.eu.ngrok.io/signup"
     );
     const clientId = signupRedirectURI.hostname;
     signinWithUnlock.searchParams.append("client_id", clientId);
@@ -24,7 +24,7 @@ $(document).ready(function () {
       "https://app.unlock-protocol.com/checkout"
     );
     const loginRedirectURI = new URL(
-      "https://fee8-102-36-149-129.eu.ngrok.io/login/"
+      "https://9bd8-102-36-149-153.eu.ngrok.io/login/"
     );
     const clientId = loginRedirectURI.hostname;
     signinWithUnlock.searchParams.append("client_id", clientId);

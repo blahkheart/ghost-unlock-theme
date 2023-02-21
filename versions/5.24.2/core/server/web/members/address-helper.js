@@ -1,4 +1,4 @@
-// helper to get user's address
+// Helper to get user's address from create magic link request
 let data = {};
 
 const storeData = (key, value) => {
