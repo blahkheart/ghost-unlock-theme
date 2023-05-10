@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -16,7 +15,14 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
-
+    <script>
+      (function(d, s) {
+        var js = d.createElement(s),
+        sc = d.getElementsByTagName(s)[0];
+        js.src = "https://paywall.unlock-protocol.com/static/unlock.latest.min.js";
+        sc.parentNode.insertBefore(js, sc);
+      }(document, "script"));
+    </script>
     {{ghost_head}}
 
 </head>
@@ -55,8 +61,7 @@
                     <button class="gh-search gh-icon-btn" data-ghost-search>{{> "icons/search"}}</button>
                     {{#unless @member}}
                         {{#unless @site.members_invite_only}}
-                            {{> "auth-btn"}}
-                            {{!-- <a class="gh-head-button" href="#/portal/signup" data-portal="signup">Subscribe</a> --}}
+                            <a class="gh-unlock_cta-btn gh-head-button auth-modal-trigger" href="#/portal/signup" data-portal="signup">Get started</a>
                         {{else}}
                             <a class="gh-head-button" href="#/portal/signin" data-portal="signin">Login</a>
                         {{/unless}}
@@ -99,17 +104,17 @@
 
 <script src="{{asset "built/casper.js"}}"></script>
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
     // Mobile Menu Trigger
     $('.gh-burger').click(function () {
         $('body').toggleClass('gh-head-open');
     });
     // FitVids - Makes video embeds responsive
     $(".gh-content").fitVids();
-});
+  });
 </script>
 {{!-- Custom javascript --}}
-<script src="{{asset "js/auth-modal.js"}}"></script>
+<script src="{{asset "js/plans-modal.js"}}"></script>
 <script src="{{asset "js/signinwithunlock.js"}}"></script>
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}

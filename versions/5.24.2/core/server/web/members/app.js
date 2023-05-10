@@ -12,8 +12,8 @@ const errorHandler = require('@tryghost/mw-error-handler');
 const config = require('../../../shared/config');
 const {http} = require('@tryghost/api-framework');
 const api = require('../../api').endpoints;
-const { getAddressFromRequest } = require("../../services/members/middleware");
-const { authWithUnlockAPI } = require("../../services/members/middleware");
+// const { getAddressFromRequest } = require("../../services/members/middleware");
+// const { authWithUnlockAPI } = require("../../services/members/middleware");
 
 const commentRouter = require('../comments');
 
@@ -28,7 +28,7 @@ module.exports = function setupMembersApp() {
     membersApp.use(cors({maxAge: config.get('caching:cors:maxAge')}));
 
     // Call Unlock API to authenticate user
-    membersApp.get("/", bodyParser.json({ limit: "50mb" }), authWithUnlockAPI);
+    // membersApp.get("/", bodyParser.json({ limit: "50mb" }), authWithUnlockAPI);
 
     // Currently global handling for signing in with ?token= magiclinks
     membersApp.use(middleware.createSessionFromMagicLink);
@@ -62,11 +62,13 @@ module.exports = function setupMembersApp() {
       "/api/send-magic-link",
       bodyParser.json(),
       // Prevent brute forcing email addresses (user enumeration)
-      shared.middleware.brute.membersAuthEnumeration,
+      // shared.middleware.brute.membersAuthEnumeration,
+
       // Prevent brute forcing passwords for the same email address
-      shared.middleware.brute.membersAuth,
+      // shared.middleware.brute.membersAuth,
+      
       // Facilitate extracting users ethereum address from request
-      getAddressFromRequest,
+      // getAddressFromRequest,
       (req, res, next) => membersService.api.middleware.sendMagicLink(req, res, next)
     );
       
