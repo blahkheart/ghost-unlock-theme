@@ -10,7 +10,7 @@
 
   <div class="modal-content ">
     <div class="box p-6 has-text-centered">
-      <h1 class="is-size-1 mb-5  is-capitalized">{{tiers}}</h1>
+      <h1 class="is-size-1 mb-5  is-capitalized" id="tier-heading" data-tier="{{tierId}}">{{tiers}}</h1>
       <h3 class="is-size-2 mb-5 ">Plans</h3>
       <div class="plans-card-box">
         <div class="plans-card">
@@ -23,8 +23,9 @@
            <span class="amount">{{monthlyPrice}}</span>/month
           </p>
 
+          <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" >Subscribe</button> 
           {{!-- <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="subscribeMonthly('{{tierId}}')">Subscribe</button>  --}}
-          <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="testButton()">Subscribe</button> 
+          {{!-- <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="testButton()">Subscribe</button>  --}}
         </div>
         <div class="plans-card">
           <strong class="is-size-3">Yearly</strong>
@@ -34,7 +35,7 @@
           <p class="price">
             <span class="amount">{{yearlyPrice}}</span>/year <span class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold">%{{discount}} discount</span>
           </p>
-          <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="window.unlockProtocol && window.unlockProtocol.loadCheckoutModal()">Subscribe</button> 
+          {{!-- <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="window.unlockProtocol && window.unlockProtocol.loadCheckoutModal()">Subscribe</button>  --}}
         </div>
       </div>
 
@@ -42,7 +43,7 @@
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
 
-  <script>
+  {{!-- <script>
     const chooseMonthlyBtn = document.getElementById('subscribe-monthly');
     function closeModal($el) {
       $el.classList.remove("is-active");
@@ -78,8 +79,6 @@
             }
           }
         }
-        {{!-- const urlStr = jsonToUrlEncoded(unlockProtocolConfig)
-        const checkoutUrl = `https://app.unlock-protocol.com/checkout?redirectUri=http://localhost:2368&paywallConfig=${urlStr}`; --}}
         window.unlockProtocol && window.unlockProtocol.loadCheckoutModal();
       }catch(e){
         console.log("SUBSCRIBE_ERR::", e)
@@ -104,5 +103,7 @@
         return null;
       }
     }
-  </script>
+  </script> --}}
+<script src="{{asset "built/bundle.js"}}"></script>
+
 </div>

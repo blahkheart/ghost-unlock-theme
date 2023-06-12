@@ -15,14 +15,15 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
-    <script>
+    {{!-- <script>
       (function(d, s) {
         var js = d.createElement(s),
         sc = d.getElementsByTagName(s)[0];
         js.src = "https://paywall.unlock-protocol.com/static/unlock.latest.min.js";
         sc.parentNode.insertBefore(js, sc);
       }(document, "script"));
-    </script>
+    </script> --}}
+
     {{ghost_head}}
 
 </head>
@@ -103,6 +104,7 @@
 </script>
 
 <script src="{{asset "built/casper.js"}}"></script>
+{{!-- <script src="{{asset "built/bundle.js"}}"></script> --}}
 <script>
   $(document).ready(function () {
     // Mobile Menu Trigger
