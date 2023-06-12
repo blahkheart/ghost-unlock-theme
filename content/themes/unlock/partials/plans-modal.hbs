@@ -24,8 +24,6 @@
           </p>
 
           <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" >Subscribe</button> 
-          {{!-- <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="subscribeMonthly('{{tierId}}')">Subscribe</button>  --}}
-          {{!-- <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="testButton()">Subscribe</button>  --}}
         </div>
         <div class="plans-card">
           <strong class="is-size-3">Yearly</strong>
@@ -35,7 +33,7 @@
           <p class="price">
             <span class="amount">{{yearlyPrice}}</span>/year <span class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold">%{{discount}} discount</span>
           </p>
-          {{!-- <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="window.unlockProtocol && window.unlockProtocol.loadCheckoutModal()">Subscribe</button>  --}}
+          <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn">Subscribe</button> 
         </div>
       </div>
 
@@ -43,67 +41,6 @@
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
 
-  {{!-- <script>
-    const chooseMonthlyBtn = document.getElementById('subscribe-monthly');
-    function closeModal($el) {
-      $el.classList.remove("is-active");
-    }
-    const $target = document.getElementById("gh-unlock_plans-modal");
-
-    var unlockProtocolConfig = {
-      "network": 80001, // Network ID (1 is for mainnet, 4 for rinkeby, 100 for xDai, etc)  
-      "locks": {
-        "0x88b19fc7029740795f98b0dcecf67c80918b98ba": {
-          "name": "Fit fams",
-          "emailRequired": true
-        }
-      }
-    }
-    
-    function jsonToUrlEncoded(json) {
-      return encodeURIComponent(JSON.stringify(json));
-    }
-
-    const subscribeMonthly = async (tierId) => {
-      try{
-        chooseMonthlyBtn.classList.add("is-loading")
-        const result = await fetch(`http://localhost:3000/api/tier/get?tierId=${tierId}`);
-        const data = await result.json();
-        const {name, lockAddress} = data;
-        unlockProtocolConfig = {
-          "network": 80001, // Network ID (1 is for mainnet, 4 for rinkeby, 100 for xDai, etc)  
-          "locks": {
-            [lockAddress]: {
-              "name": name,
-              "emailRequired": true
-            }
-          }
-        }
-        window.unlockProtocol && window.unlockProtocol.loadCheckoutModal();
-      }catch(e){
-        console.log("SUBSCRIBE_ERR::", e)
-        chooseMonthlyBtn.classList.remove("is-loading")
-      }
-    }
-    const testButton = async () => {
-      try {
-        const unlockProvider = "https://rpc.unlock-protocol.com/80001";
-        // Initializing RPC provider
-        const provider = new ethers.providers.JsonRpcProvider(unlockProvider);
-        const txHash = "0x1eb453ecf86c4cc553370f2aea48b8a3fca232620e4d1ad0e32d29c795bd6e28";
-        const txReceipt = await provider.getTransaction(txHash)
-        if (txReceipt === null) {
-          console.log("Transaction is still pending");
-        } else {
-          console.log(`Transaction confirmed in block number ${txReceipt.blockNumber}`);
-          console.log("res", txReceipt.from, txReceipt.to);
-        }
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    }
-  </script> --}}
-<script src="{{asset "built/bundle.js"}}"></script>
+  <script src="{{asset "built/bundle.js"}}"></script>
 
 </div>
