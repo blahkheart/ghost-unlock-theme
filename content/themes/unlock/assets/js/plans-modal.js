@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
     ) || []
   ).forEach(($close) => {
-    const $target = $close.closest(".modal");
+    // const $target = $close.closest(".modal");
+    const $target = $close.closest(".gh-unlock_plans-modal");
 
     $close.addEventListener("click", () => {
       closeModal($target);
