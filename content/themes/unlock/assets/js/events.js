@@ -1,42 +1,56 @@
-// author: "dannithomx"
 // purpose: Event listeners
-
 
 $(document).ready(function () {
   const plansModal = $("#gh-unlock_plans-modal");
   const subscribeBtn = $(".subscribe-btn");
+  const unlockGhostApiUrl = 'http://localhost:3000';
   let email = ""
 
+  function subscriptionError(txHash, data) {
+    const txHashSection = $("#error-txhash-section");
+    const txHashDisplay = $("#error-txhash");
+    const errorModal = $("#gh-unlock_error-modal");
+    const errorMsgDisplay = $("#error-msg");
+    let errorMsg;
+    if (data) {
+      errorMsg = `${data.message.toUpperCase()}: contact support`;
+      errorMsgDisplay.text(errorMsg);
+    }
+    if (txHash) {
+      txHashSection.removeClass("is-hidden");
+      txHashDisplay.text(txHash);
+    }
+    errorModal.addClass("is-active");
+  }
+
+  function subscriptionSuccess() {
+    const successModal = $("#gh-unlock_success-modal");
+    successModal.addClass("is-active");
+  }
+
   const subscribeUser = async (txHash, email, lockAddress) => {
-    const res = await fetch("http://localhost:3000/api/subscribe", {
-      method: "POST",
-      // mode: "cors",
-      // cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({ hash: txHash, email, lockAddress }),
-    });
-    console.log("RES", await res.json());
-    if (res.status === 201) {
-      const successModal = $("#gh-unlock_success-modal")
-      openModal(successModal);
+    try {
+      const res = await fetch(`${unlockGhostApiUrl}/api/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ hash: txHash, email, lockAddress }),
+      });
+      const data = await res.json();
+      if (res.status !== 201) {
+        subscriptionError(txHash, data);
+      } else {
+        subscriptionSuccess();
+      }
+    } catch (e) {
+      console.log("ERR_SUBSCRIBING_USER", e);
     }
   };
-
-  function openModal($el) {
-    $el.classList.add("is-active");
-  }
 
   function closeModal($el) {
     $el.removeClass("is-active");
   }
-
-  // window.addEventListener("unlockProtocol.authenticated", function (event) {
-  //   // event.detail.addresss includes the address of the current user, when known
-  //   console.log("address", event.detail.addresss);
-  // });
 
   window.addEventListener("unlockProtocol.closeModal", function (event) {
     subscribeBtn.removeClass("is-loading")
@@ -44,12 +58,13 @@ $(document).ready(function () {
   });
 
   window.addEventListener("unlockProtocol.metadata", function (event) {
+    console.log("TX-META", event.detail[0]);
     email = event.detail[0].metadata.protected.email;
   });
   
   window.addEventListener("unlockProtocol.transactionSent", function (event) {
-    console.log("tx-hash", event.detail.hash);
-    console.log("tx-detail", event.detail);
-    console.log("tx-detail-email", email);
+    const txHash = event.detail.hash;
+    const lockAddress = event.detail.lock;
+    subscribeUser(txHash, email, lockAddress);
   });
 });
