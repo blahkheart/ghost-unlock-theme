@@ -1,0 +1,34 @@
+{
+  "url": "http://localhost:2368/",
+  "server": {
+    "port": 2368,
+    "host": "127.0.0.1"
+  },
+  "database": {
+    "client": "sqlite3",
+    "connection": {
+      "filename": "path\\to\\ghost-unlock-theme\\content\\data\\ghost-local.db"
+    }
+  },
+  "mail": {
+    "transport": "SMTP",
+    "options": {
+      "host": "smtp.mailtrap.io",
+      "port": 2525,
+      "auth": {
+        "user": "your_user_id",
+        "pass": "your_password"
+      }
+    }
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "local",
+  "paths": {
+    "contentPath": "path\\to\\ghost-unlock-theme\\content"
+  }
+}
