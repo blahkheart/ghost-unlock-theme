@@ -24,4 +24,20 @@
     </div>
   </div>
   <button class="modal-close tx-modal-close is-large" aria-label="close"></button>
+  
+  <script>
+    const copyBtn = document.getElementById("error-copy-btn");
+
+    /* copy tx hash */
+    const handleCopyTxHash = (text) => {
+      navigator.clipboard.writeText(text);
+    };
+
+    /* click event to trigger copy*/
+    copyBtn.addEventListener("click", () => {
+      const txHash = document.getElementById("error-txhash").innerText;
+      handleCopyTxHash(txHash);
+      alert("Tx hash copied");
+    });
+  </script>
 </div>

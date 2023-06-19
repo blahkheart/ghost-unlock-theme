@@ -188,7 +188,6 @@
   "dependencies": {
     "@tryghost/admin-api": "^1.13.2",
     "@unlock-protocol/paywall": "^0.5.1",
-    "dotenv": "^16.1.4",
     "ethers": "^5.7.2"
   }
 }

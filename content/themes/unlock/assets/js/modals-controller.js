@@ -1,32 +1,22 @@
+import { subscribeBtn } from "./settings";
+
+export function closeModal($el) {
+   subscribeBtn.forEach((btn) => {
+     btn.classList.remove("is-loading");
+   });
+  $el.classList.remove("is-active");
+}
+
+function openModal($el) {
+  $el.classList.add("is-active");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const copyBtn = document.getElementById("error-copy-btn");
-  const subscribeBtn = $(".subscribe-btn");
-  
-  /* copy tx hash */
-  const handleCopyTxHash = (text) => {
-    navigator.clipboard.writeText(text);
-  };
-
-  /* click event to trigger copy*/
-  copyBtn.addEventListener("click", () => {
-    const txHash = document.getElementById("error-txhash").innerText;
-    handleCopyTxHash(txHash);
-    alert("Tx hash copied");
-  });
-
-  function openModal($el) {
-    $el.classList.add("is-active");
-  }
-
-  function closeModal($el) {
-    subscribeBtn.removeClass("is-loading");
-    $el.classList.remove("is-active");
-  }
-
   function closeSubscriptionModal($el) {
     closeModal($el);
     location.reload();
   }
+
   function closeAllModals() {
     (document.querySelectorAll(".modal") || []).forEach(($modal) => {
       closeModal($modal);
@@ -44,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-  
+
   /* open plans modal i.e binds plans modal to modal trigger*/
   bindModalEvents(".plans-modal-trigger", "gh-unlock_plans-modal");
 

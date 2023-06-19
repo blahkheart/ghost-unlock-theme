@@ -4,6 +4,8 @@ module.exports = {
   mode: "development",
   entry: {
     bundle: path.resolve(__dirname, "./assets/js/index.js"),
+    events: path.resolve(__dirname, "./assets/js/events.js"),
+    modals: path.resolve(__dirname, "./assets/js/modals-controller.js"),
   },
   output: {
     path: path.resolve(__dirname, "./assets/built"),
