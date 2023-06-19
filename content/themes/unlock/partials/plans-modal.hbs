@@ -1,5 +1,5 @@
 <div id="gh-unlock_plans-modal" class="modal gh-unlock_plans-modal">
-  <div class="modal-background">
+  <div class="modal-background plans-modal-background">
     <div class="gh-portal-powered outside account-home">
       <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.8326 2.33879C6.37785 2.95189 3.95901 5.20797 3.41126 9.74699C3.34896 10.2632 3.22642 10.7805 3.10443 11.2954C2.93277 12.02 2.76221 12.74 2.76221 13.4458C2.76221 17.9885 6.5856 21.556 11.1283 21.556C12.8959 21.556 14.4433 20.8144 15.8756 20.048C19.0536 18.3478 22.0328 16.2597 22.0328 12.5411C22.0328 9.91512 20.1051 7.56932 18.466 5.5747C18.3834 5.47416 18.3015 5.37451 18.2206 5.27577C17.3866 4.25742 14.4333 2.04643 11.8326 2.33879Z" fill="#15171A"></path></svg>
@@ -10,8 +10,8 @@
 
   <div class="modal-content ">
     <div class="box p-6 has-text-centered">
-      <h1 class="is-size-1 mb-5  is-capitalized">{{tiers}}</h1>
-      <h3 class="is-size-2 mb-5 ">Plans</h3>
+      <h1 class="is-size-1 mb-5  is-capitalized" id="tier-heading" data-tier="{{tierId}}">{{tiers}}</h1>
+      <h3 class="is-size-2 mb-5 plans-heading">Plans</h3>
       <div class="plans-card-box">
         <div class="plans-card">
           <strong class="is-size-3">Monthly</strong>
@@ -23,8 +23,7 @@
            <span class="amount">{{monthlyPrice}}</span>/month
           </p>
 
-          {{!-- <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="subscribeMonthly('{{tierId}}')">Subscribe</button>  --}}
-          <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="testButton()">Subscribe</button> 
+          <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" >Subscribe</button> 
         </div>
         <div class="plans-card">
           <strong class="is-size-3">Yearly</strong>
@@ -32,77 +31,15 @@
             Access to every paywalled post and other benefits for {{tiers suffix=""}} members. Thanks for your support!
           </p>
           <p class="price">
-            <span class="amount">{{yearlyPrice}}</span>/year <span class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold">%{{discount}} discount</span>
+            <span class="amount">{{yearlyPrice}}</span>/year <span class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold discount">%{{discount}} discount</span>
           </p>
-          <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn" onClick="window.unlockProtocol && window.unlockProtocol.loadCheckoutModal()">Subscribe</button> 
+          <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn">Subscribe</button> 
         </div>
       </div>
 
     </div>
   </div>
-  <button class="modal-close is-large" aria-label="close"></button>
+  <button class="modal-close plans-modal-close is-large" aria-label="close"></button>
 
-  <script>
-    const chooseMonthlyBtn = document.getElementById('subscribe-monthly');
-    function closeModal($el) {
-      $el.classList.remove("is-active");
-    }
-    const $target = document.getElementById("gh-unlock_plans-modal");
-
-    var unlockProtocolConfig = {
-      "network": 80001, // Network ID (1 is for mainnet, 4 for rinkeby, 100 for xDai, etc)  
-      "locks": {
-        "0x88b19fc7029740795f98b0dcecf67c80918b98ba": {
-          "name": "Fit fams",
-          "emailRequired": true
-        }
-      }
-    }
-    
-    function jsonToUrlEncoded(json) {
-      return encodeURIComponent(JSON.stringify(json));
-    }
-
-    const subscribeMonthly = async (tierId) => {
-      try{
-        chooseMonthlyBtn.classList.add("is-loading")
-        const result = await fetch(`http://localhost:3000/api/tier/get?tierId=${tierId}`);
-        const data = await result.json();
-        const {name, lockAddress} = data;
-        unlockProtocolConfig = {
-          "network": 80001, // Network ID (1 is for mainnet, 4 for rinkeby, 100 for xDai, etc)  
-          "locks": {
-            [lockAddress]: {
-              "name": name,
-              "emailRequired": true
-            }
-          }
-        }
-        {{!-- const urlStr = jsonToUrlEncoded(unlockProtocolConfig)
-        const checkoutUrl = `https://app.unlock-protocol.com/checkout?redirectUri=http://localhost:2368&paywallConfig=${urlStr}`; --}}
-        window.unlockProtocol && window.unlockProtocol.loadCheckoutModal();
-      }catch(e){
-        console.log("SUBSCRIBE_ERR::", e)
-        chooseMonthlyBtn.classList.remove("is-loading")
-      }
-    }
-    const testButton = async () => {
-      try {
-        const unlockProvider = "https://rpc.unlock-protocol.com/80001";
-        // Initializing RPC provider
-        const provider = new ethers.providers.JsonRpcProvider(unlockProvider);
-        const txHash = "0x1eb453ecf86c4cc553370f2aea48b8a3fca232620e4d1ad0e32d29c795bd6e28";
-        const txReceipt = await provider.getTransaction(txHash)
-        if (txReceipt === null) {
-          console.log("Transaction is still pending");
-        } else {
-          console.log(`Transaction confirmed in block number ${txReceipt.blockNumber}`);
-          console.log("res", txReceipt.from, txReceipt.to);
-        }
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
-    }
-  </script>
+  <script src="{{asset "built/bundle.js"}}"></script>
 </div>

@@ -1,0 +1,132 @@
+/* Plans Modal's 'powered by ghost' icon styles */
+.gh-portal-powered {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  a {
+    border: none;
+    display: flex;
+    align-items: center;
+    line-height: 0;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 6px 8px 6px 7px;
+    color: #303336;
+    font-size: 1.25rem;
+    letter-spacing: -0.2px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.5s ease-in-out;
+    width: 146px;
+    height: 28px;
+    line-height: 28px;
+    svg {
+      height: 16px;
+      width: 16px;
+      margin: 0 6px 0 0;
+    }
+  }
+}
+
+/* Plans modal styles */
+#gh-unlock_plans-modal {
+  .modal-content {
+    width: 992px;
+    max-width: 100%;
+    min-height: 450px;
+    max-height: 100%;
+    .box.p-6.has-text-centered {
+      height: 100%;
+    }
+    .plans-card-box {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 0 35px;
+      .plans-card {
+        border: 1px solid #dedede;
+        border-radius: 10px;
+        padding: 30px 20px 50px;
+        &:first-of-type {
+          margin-bottom: 30px;
+        }
+        .info {
+          margin: 20px 0px;
+          font-size: 18px;
+          font-weight: 500;
+        }
+        .price {
+          margin-bottom: 28px;
+          .amount {
+            font-size: 30px;
+            font-weight: 700;
+            display: inline-block;
+            margin-right: 4px;
+          }
+          .discount {
+            margin-left: 30px;
+          }
+        }
+        button {
+          font-size: 19px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  #gh-unlock_plans-modal {
+    .modal-content {
+      .plans-card-box {
+        flex-direction: row;
+        justify-content: center;
+        .plans-card:first-of-type {
+          margin: 0 30px 0 0;
+        }
+      }
+    }
+  }
+}
+
+/* Tx modal styles */
+.gh-unlock_tx-modal {
+  .modal-content {
+    width: 760px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    #gh-unlock_success-modal-heading {
+      margin-top: 30px;
+    }
+    #gh-unlock_error-modal-heading {
+      margin-top: 15px;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    h3 {
+      margin-top: 30px;
+    }
+
+    #gh-unlock_error-modal-details {
+      margin-top: 20px;
+      #error-msg {
+        margin-bottom: 10px;
+      }
+      span {
+        word-break: keep-all;
+        white-space: nowrap;
+      }
+      button {
+        max-width: 41px;
+        max-height: 43px;
+        border-radius: 15px;
+        padding: 5px 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

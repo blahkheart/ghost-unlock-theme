@@ -15,16 +15,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
-    <script>
-      (function(d, s) {
-        var js = d.createElement(s),
-        sc = d.getElementsByTagName(s)[0];
-        js.src = "https://paywall.unlock-protocol.com/static/unlock.latest.min.js";
-        sc.parentNode.insertBefore(js, sc);
-      }(document, "script"));
-    </script>
-    {{ghost_head}}
 
+    {{ghost_head}}
 </head>
 <body class="{{body_class}} is-head-{{#match @custom.navigation_layout "Logo on cover"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}{{#if @custom.show_publication_cover}} has-cover{{/if}}">
 <div class="viewport">
@@ -103,6 +95,7 @@
 </script>
 
 <script src="{{asset "built/casper.js"}}"></script>
+
 <script>
   $(document).ready(function () {
     // Mobile Menu Trigger
@@ -114,8 +107,8 @@
   });
 </script>
 {{!-- Custom javascript --}}
-<script src="{{asset "js/plans-modal.js"}}"></script>
-<script src="{{asset "js/signinwithunlock.js"}}"></script>
+{{!-- <script src="{{asset "built/modals.js"}}"></script> --}}
+<script src="{{asset "built/events.js"}}"></script>
 
 {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
