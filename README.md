@@ -23,15 +23,23 @@ yarn install
 ```
 
 **Set up `config.development.json`**
+```bash
+# go to project root directory
+cd ..
 
-- `"contentPath": "path/to/ghost-unlock-theme/content"` to the appropriate location on your file system
+# copy and rename sample config file
+cp sample.config.development.json config.development.json
+
+```
+
+- Edit `"contentPath": "path/to/ghost-unlock-theme/content"` to the appropriate folder location on your file system
 
 - Set up mail service:
 ```json
 "mail": {
     "transport": "SMTP",
     "options": {
-      "host": "smtp.mailtrap.io", // can be any mail provider
+      "host": "smtp.mailtrap.io", // can be any mail provider or create an account with mailtrap 
       "port": 2525,
       "auth": {
         "user": "get_from_mail_provider",
