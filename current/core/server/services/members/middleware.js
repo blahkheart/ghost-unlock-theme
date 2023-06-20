@@ -9,9 +9,6 @@ const spamPrevention = require("../../web/shared/middleware/api/spam-prevention"
 const { formattedMemberResponse } = require("./utils");
 const errors = require("@tryghost/errors");
 const tpl = require("@tryghost/tpl");
-// const { storeData } = require("../../web/members/address-helper");
-// const { getEmailFromToken } = require("../../web/members/email-helper");
-// const axios = require("axios");
 
 const messages = {
   missingUuid: "Missing uuid.",
@@ -323,55 +320,6 @@ const createSessionFromMagicLink = async function (req, res, next) {
   }
 };
 
-// const authWithUnlockAPI = async function (req, res, next) {
-//   if (!req.url.includes("token=")) {
-//     return next();
-//   }
-//   const token = req.query.token
-
-//   // req.query is a plain object, copy it to a URLSearchParams object so we can call toString()
-//   const searchParams = new URLSearchParams("");
-//   Object.keys(req.query).forEach((param) => {
-//     // don't copy the "token" or "r" params
-//     if (param !== "token" && param !== "r") {
-//       searchParams.set(param, req.query[param]);
-//     }
-//   });
-//   const email = await getEmailFromToken(token)
-//   const action = req.query.action;
-//   const address = req.query.address;
-//   try {
-//     const ghostAPIURL = `http://localhost:3000/signup/verify/${email}?action=${action}&address=${address}`;
-//     axios
-//       .get(ghostAPIURL)
-//       .then((response) => {
-//         if (response && response.status === 200) {
-//           return next()
-//         } else {
-//           searchParams.set("success", false);
-//           res.redirect(`${urlUtils.getSubdir()}/?${searchParams.toString()}`);
-//         }
-//       })
-//       .catch((err) => console.log(err));
-//   } catch (err) {
-//     logging.warn(err.message);
-//     // Do a standard 302 redirect to the homepage, with success=false
-//     searchParams.set("success", false);
-//     res.redirect(`${urlUtils.getSubdir()}/?${searchParams.toString()}`);
-//   }
-// };
-
-// const getAddressFromRequest = async function (req, res, next) {
-//   try {
-//     const address = await req.body.address;
-//     storeData("address", address);
-//     next();
-//   } catch (err) {
-//     Object.assign(req, { address: null });
-//     next();
-//   }
-// };
-
 // Set req.member & res.locals.member if a cookie is set
 module.exports = {
   loadMemberSession,
@@ -384,6 +332,4 @@ module.exports = {
   updateMemberNewsletters,
   deleteSession,
   deleteSuppression,
-  // getAddressFromRequest,
-  // authWithUnlockAPI,
 };
