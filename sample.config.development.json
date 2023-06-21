@@ -7,7 +7,7 @@
   "database": {
     "client": "sqlite3",
     "connection": {
-      "filename": "C:\\Users\\USER\\Documents\\projects\\ghost-unlock-theme\\content\\data\\ghost-local.db"
+      "filename": "path\\to\\ghost-unlock-theme\\content\\data\\ghost-local.db"
     }
   },
   "mail": {
@@ -16,8 +16,8 @@
       "host": "smtp.mailtrap.io",
       "port": 2525,
       "auth": {
-        "user": "de9546c556f63a",
-        "pass": "a68eee6ddc87d0"
+        "user": "your_user_id",
+        "pass": "your_password"
       }
     }
   },
@@ -29,6 +29,6 @@
   },
   "process": "local",
   "paths": {
-    "contentPath": "C:\\Users\\USER\\Documents\\projects\\ghost-unlock-theme\\content"
+    "contentPath": "path\\to\\ghost-unlock-theme\\content"
   }
 }
