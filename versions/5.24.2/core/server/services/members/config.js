@@ -3,7 +3,7 @@ const { URL } = require("url");
 const crypto = require("crypto");
 const createKeypair = require("keypair");
 const { add } = require("lodash");
-const { getData } = require("../../web/members/address-helper");
+
 
 class MembersConfigProvider {
   /**
@@ -97,7 +97,7 @@ class MembersConfigProvider {
     const signinURL = new URL(siteUrl);
     signinURL.searchParams.set("token", token);
     signinURL.searchParams.set("action", type);
-    signinURL.searchParams.append("address", getData("address"));
+
     if (referrer) {
       signinURL.searchParams.set("r", referrer);
     }
