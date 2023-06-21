@@ -13,10 +13,10 @@ let networkConfigs = {
     provider,
   },
   5: {
-    provider: provider,
+    provider,
   },
   80001: {
-    provider: provider,
+    provider,
   },
 };
 

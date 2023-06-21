@@ -3,17 +3,14 @@ import subscribe from "./subscribe";
 
 const chooseMonthlyBtn = document.getElementById("subscribe-monthly");
 const chooseYearlyBtn = document.getElementById("subscribe-yearly");
-const tierHeading = document.getElementById("tier-heading");
-const tierId = tierHeading.dataset.tier;
+const tierId = document.getElementById("tier-heading").dataset.tier;
 
-chooseMonthlyBtn.addEventListener("click", function () {
-  console.log("choseMonthly..");
-  chooseMonthlyBtn.classList.add("is-loading");
-  subscribe(tierId);
-});
+function handleClick(isYearly = false) {
+  console.log(`chose${isYearly ? "Yearly" : "Monthly"}...`);
+  const btn = isYearly ? chooseYearlyBtn : chooseMonthlyBtn;
+  btn.classList.add("is-loading");
+  subscribe(tierId, isYearly);
+}
 
-chooseYearlyBtn.addEventListener("click", function () {
-  console.log("choseYearly...");
-  chooseYearlyBtn.classList.add("is-loading");
-  subscribe(tierId, true);
-});
+chooseMonthlyBtn.addEventListener("click", () => handleClick());
+chooseYearlyBtn.addEventListener("click", () => handleClick(true));

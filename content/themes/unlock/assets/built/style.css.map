@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,cAKI,QAAS,CACT,SACJ","file":"style.css","sourcesContent":["p,\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n    margin: 0;\r\n    padding: 0;\r\n}"]}
