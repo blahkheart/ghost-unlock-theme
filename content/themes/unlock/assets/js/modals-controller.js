@@ -1,14 +1,25 @@
 import { subscribeBtn } from "./settings";
 
 export function closeModal($el) {
-   subscribeBtn.forEach((btn) => {
-     btn.classList.remove("is-loading");
-   });
+  subscribeBtn.forEach((btn) => {
+    btn.classList.remove("is-loading");
+  });
   $el.classList.remove("is-active");
 }
 
 function openModal($el) {
   $el.classList.add("is-active");
+}
+
+function fadeInModal(modal) {
+  modal.classList.add("gh-unlock-fade-in");
+}
+
+function fadeOutModal(modal) {
+  modal.classList.add("gh-unlock-fade-out");
+  setTimeout(function () {
+    modal.classList.remove("gh-unlock-fade-out");
+  }, 300); // Match the duration of the fade-out animation
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeAllModals() {
     (document.querySelectorAll(".modal") || []).forEach(($modal) => {
+      fadeOutModal($modal)
       closeModal($modal);
     });
   }
@@ -30,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       $trigger.addEventListener("click", (e) => {
         e.preventDefault();
+        fadeInModal($target);
         openModal($target);
       });
     });

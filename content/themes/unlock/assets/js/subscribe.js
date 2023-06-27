@@ -1,25 +1,34 @@
 import { Paywall } from "@unlock-protocol/paywall";
-import { provider } from "./paywall-config";
+import { networks } from "@unlock-protocol/networks";
 import { subscribeBtn, unlockGhostApiBaseUrl } from "./settings";
 
 function subscriptionSuccess() {
+  isProcessingSubscription(false);
   $("#gh-unlock_success-modal").addClass("is-active");
 }
 
 function subscriptionError(txHash, data) {
+  isProcessingSubscription(false);
+
   const errorModal = $("#gh-unlock_error-modal");
   const errorMsgDisplay = $("#error-msg");
   const errorMsg = data ? `${data.message.toUpperCase()}: contact support` : "";
+  const txHashSection = $("#error-txhash-section");
+  const txHashText = $("#error-txhash");
 
-  $("#error-txhash-section").toggleClass("is-hidden", !txHash);
-  $("#error-txhash").text(txHash);
+  txHashSection.toggleClass("is-hidden", !txHash);
+  txHashText.text(txHash);
   errorMsgDisplay.text(errorMsg);
-
   errorModal.addClass("is-active");
+}
+
+function isProcessingSubscription(isLoading = false) {
+  $(".loading-overlay").toggleClass("is-hidden", !isLoading);
 }
 
 export async function subscribeUser(txHash, email, lockAddress) {
   try {
+    isProcessingSubscription(true);
     const res = await fetch(`${unlockGhostApiBaseUrl}/api/subscribe`, {
       method: "POST",
       headers: {
@@ -64,13 +73,9 @@ export async function subscribe(tierId, isYearly = false) {
       persistentCheckout: false,
     };
 
-    const networkConfig = {
-      [network]: {
-        provider,
-      },
-    };
-
-    const paywall = new Paywall(paywallConfig, networkConfig, provider);
+    const paywall = new Paywall(networks);
+    paywall.setPaywallConfig(paywallConfig);
+    // const response = await paywall.loadCheckoutModal(paywallConfig);
     const response = await paywall.loadCheckoutModal();
     console.log("response@checkout::", response);
   } catch (e) {

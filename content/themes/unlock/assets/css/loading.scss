@@ -1,0 +1,44 @@
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 45;
+
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .loading-text {
+      color: #ffffff;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      border-top-color: #4287f5;
+      animation: spinner-rotate 1s infinite linear;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+
+@keyframes spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
