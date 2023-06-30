@@ -10,20 +10,18 @@ $(document).ready(function () {
     closeModal(plansModal);
   });
 
+  window.addEventListener("unlockProtocol.transactionSent", function (event) {
+    setTimeout(function () { 
+      console.log("TX-TRANSACTION_SENT-EVENT::::");
+      const txHash = event.detail.hash;
+      const lockAddress = event.detail.lock;
+      subscribeUser(txHash, email, lockAddress);
+    }, 1500);
+  });
+
   window.addEventListener("unlockProtocol.metadata", function (event) {
-    console.log("TX-META", event.detail[0].metadata);
-    console.log("TX-META-DETAIL", event.detail);
-    console.log("TX-META-PROTECTED", event.detail[0].metadata.protected);
-    console.log("TX-META-EVENT", event);
+    console.log("TX-METADATA-EVENT::::");
     userAddress = event.detail[0].userAddress;
     email = event.detail[0].metadata.protected.email;
-  });
-  
-  window.addEventListener("unlockProtocol.transactionSent", function (event) {
-    const txHash = event.detail.hash;
-    const lockAddress = event.detail.lock;
-    console.log("TX-META-EMAIL", email);
-    console.log("TX-META-USERADDRESS", userAddress);
-    subscribeUser(txHash, email, lockAddress);
   });
 });
