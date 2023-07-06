@@ -13,6 +13,7 @@ $(document).ready(function () {
   window.addEventListener("unlockProtocol.transactionSent", function (event) {
     setTimeout(function () { 
       console.log("TX-TRANSACTION_SENT-EVENT::::");
+      console.log("TX-SENT-EMAIL: ", email);
       const txHash = event.detail.hash;
       const lockAddress = event.detail.lock;
       subscribeUser(txHash, email, lockAddress);
