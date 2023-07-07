@@ -31,14 +31,58 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./assets/js/helpers/tiers.js":
-/*!************************************!*\
-  !*** ./assets/js/helpers/tiers.js ***!
-  \************************************/
+/***/ "./assets/js/helpers/discount.js":
+/*!***************************************!*\
+  !*** ./assets/js/helpers/discount.js ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tryghost_content_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tryghost/content-api */ \"./node_modules/@tryghost/content-api/es/content-api.js\");\n\nconst api = new _tryghost_content_api__WEBPACK_IMPORTED_MODULE_0__[\"default\"]({\n  url: \"http://localhost:2368\",\n  key: \"811441c13447357ec442df3b6d\",\n  version: \"v5.0\"\n});\nconst getTier = async tierName => {\n  const tiers = await api.tiers.browse();\n  console.log(\"tiers::\", tiers);\n  const _tierName = tierName.split(\" tier\")[0];\n  console.log(\"name::\", _tierName);\n  const tier = tiers.find(tier => tier.name === _tierName);\n  console.log(\"TIER::\", tier);\n  return tiers;\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (getTier);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/tiers.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _getTier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getTier */ \"./assets/js/helpers/getTier.js\");\n\nasync function discount(tierName) {\n  const tier = await (0,_getTier__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(tierName);\n  const monthlyPrice = parseInt(tier.monthly_price);\n  const yearlyPrice = parseInt(tier.yearly_price);\n  const originalYearlyPrice = monthlyPrice * 12;\n  const discountedYearlyPrice = yearlyPrice;\n  const discount = Math.floor((originalYearlyPrice - discountedYearlyPrice) / originalYearlyPrice * 100);\n  const output = `%${discount} discount`;\n  return output;\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (discount);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/discount.js?");
+
+/***/ }),
+
+/***/ "./assets/js/helpers/getTier.js":
+/*!**************************************!*\
+  !*** ./assets/js/helpers/getTier.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tryghost_content_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tryghost/content-api */ \"./node_modules/@tryghost/content-api/es/content-api.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../settings */ \"./assets/js/settings.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_settings__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst api = new _tryghost_content_api__WEBPACK_IMPORTED_MODULE_0__[\"default\"]({\n  url: _settings__WEBPACK_IMPORTED_MODULE_1__.blogUrl,\n  key: _settings__WEBPACK_IMPORTED_MODULE_1__.contentKey,\n  version: \"v5.0\"\n});\nfunction getTierName(inputString) {\n  // Check if the string contains commas\n  if (inputString.includes(\",\")) {\n    // Split the string by commas and remove any leading/trailing spaces\n    const tiers = inputString.split(\",\").map(tier => tier.trim());\n    // Extract the first tier from the array\n    let firstTierName = tiers[0];\n    // Check if the name contains the word 'tier'\n    if (firstTierName.includes(\" tier\")) {\n      const _formattedName = firstTierName.split(\" \").map(name => name.trim());\n      // Remove the last word 'tier'\n      _formattedName.pop();\n      firstTierName = _formattedName.join(\" \");\n    }\n    return firstTierName;\n  } else {\n    // Split the string by spaces and remove any leading/trailing spaces\n    const tierNameArr = inputString.split(\" \").map(tier => tier.trim());\n    // Remove the last word 'tier'\n    tierNameArr.pop();\n    // Join words \n    return tierNameArr.join(\" \");\n  }\n}\nconst getTier = async _name => {\n  const tiers = await api.tiers.browse();\n  const _tierName = getTierName(_name);\n  const tier = tiers.find(tier => tier.name === _tierName);\n  return tier;\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (getTier);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/getTier.js?");
+
+/***/ }),
+
+/***/ "./assets/js/helpers/monthlyPrice.js":
+/*!*******************************************!*\
+  !*** ./assets/js/helpers/monthlyPrice.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _getTier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getTier */ \"./assets/js/helpers/getTier.js\");\n\nconst CURRENCIES = {\n  USD: \"$\",\n  EUR: \"€\",\n  ETH: \"ETH\",\n  BTC: \"BTC\"\n};\nasync function monthlyPrice(tierName) {\n  let output = \"\";\n  let suffix = \"\";\n  const tier = await (0,_getTier__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(tierName);\n  const monthlyPrice = tier.monthly_price;\n  const currency = tier.currency;\n  if (currency === \"USD\" || currency === \"EUR\") {\n    output = `${CURRENCIES[currency]}${monthlyPrice}`;\n  } else {\n    suffix = CURRENCIES[currency];\n    output = `${monthlyPrice} ${suffix}`;\n  }\n  return output;\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (monthlyPrice);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/monthlyPrice.js?");
+
+/***/ }),
+
+/***/ "./assets/js/helpers/tierId.js":
+/*!*************************************!*\
+  !*** ./assets/js/helpers/tierId.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _getTier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getTier */ \"./assets/js/helpers/getTier.js\");\n\nasync function tierId(tierName) {\n  const tier = await (0,_getTier__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(tierName);\n  return tier.id;\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (tierId);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/tierId.js?");
+
+/***/ }),
+
+/***/ "./assets/js/helpers/yearlyPrice.js":
+/*!******************************************!*\
+  !*** ./assets/js/helpers/yearlyPrice.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _getTier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getTier */ \"./assets/js/helpers/getTier.js\");\n\nconst CURRENCIES = {\n  USD: \"$\",\n  EUR: \"€\",\n  ETH: \"ETH\",\n  BTC: \"BTC\"\n};\nasync function yearlyPrice(tierName) {\n  let output = \"\";\n  let suffix = \"\";\n  const tier = await (0,_getTier__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(tierName);\n  const yearlyPrice = tier.yearly_price;\n  const currency = tier.currency;\n  if (currency === \"USD\" || currency === \"EUR\") {\n    output = `${CURRENCIES[currency]}${yearlyPrice}`;\n  } else {\n    suffix = CURRENCIES[currency];\n    output = `${yearlyPrice} ${suffix}`;\n  }\n  return output;\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (yearlyPrice);\n\n//# sourceURL=webpack://unlock/./assets/js/helpers/yearlyPrice.js?");
 
 /***/ }),
 
@@ -46,10 +90,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _try
 /*!****************************!*\
   !*** ./assets/js/index.js ***!
   \****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_modals_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/modals.scss */ \"./assets/css/modals.scss\");\n/* harmony import */ var _subscribe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./subscribe */ \"./assets/js/subscribe.js\");\n/* harmony import */ var _helpers_tiers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/tiers */ \"./assets/js/helpers/tiers.js\");\n\n\n\nconst chooseMonthlyBtn = document.getElementById(\"subscribe-monthly\");\nconst chooseYearlyBtn = document.getElementById(\"subscribe-yearly\");\nconst tierId = document.getElementById(\"tier-heading\").dataset.tier;\nconst tierName = document.getElementById(\"tier-heading\").innerHTML;\nfunction handleClick() {\n  let isYearly = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;\n  console.log(`chose${isYearly ? \"Yearly\" : \"Monthly\"}...`);\n  const btn = isYearly ? chooseYearlyBtn : chooseMonthlyBtn;\n  btn.classList.add(\"is-loading\");\n  (0,_subscribe__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(tierId, isYearly);\n}\nchooseMonthlyBtn.addEventListener(\"click\", () => handleClick());\nchooseYearlyBtn.addEventListener(\"click\", () => handleClick(true));\n(0,_helpers_tiers__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(tierName);\n\n//# sourceURL=webpack://unlock/./assets/js/index.js?");
+eval("__webpack_require__.a(module, async function (__webpack_handle_async_dependencies__, __webpack_async_result__) { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_modals_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/modals.scss */ \"./assets/css/modals.scss\");\n/* harmony import */ var _subscribe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./subscribe */ \"./assets/js/subscribe.js\");\n/* harmony import */ var _helpers_discount__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/discount */ \"./assets/js/helpers/discount.js\");\n/* harmony import */ var _helpers_yearlyPrice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/yearlyPrice */ \"./assets/js/helpers/yearlyPrice.js\");\n/* harmony import */ var _helpers_monthlyPrice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/monthlyPrice */ \"./assets/js/helpers/monthlyPrice.js\");\n/* harmony import */ var _helpers_tierId__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/tierId */ \"./assets/js/helpers/tierId.js\");\n\n\n\n\n\n\nconst tierName = document.getElementById(\"tier-heading\").innerHTML;\nconst _tierId = await (0,_helpers_tierId__WEBPACK_IMPORTED_MODULE_5__[\"default\"])(tierName);\nconst chooseMonthlyBtn = document.getElementById(\"subscribe-monthly\");\nconst chooseYearlyBtn = document.getElementById(\"subscribe-yearly\");\nconst percentageDiscount = document.getElementById(\"discount\");\nconst monthlyPriceAmount = document.getElementById(\"monthly-price-amount\");\nconst yearlyPriceAmount = document.getElementById(\"yearly-price-amount\");\nfunction handleClick() {\n  let isYearly = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;\n  console.log(`chose${isYearly ? \"Yearly\" : \"Monthly\"}...`);\n  const btn = isYearly ? chooseYearlyBtn : chooseMonthlyBtn;\n  btn.classList.add(\"is-loading\");\n  (0,_subscribe__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(_tierId, isYearly);\n}\nchooseMonthlyBtn.addEventListener(\"click\", () => handleClick());\nchooseYearlyBtn.addEventListener(\"click\", () => handleClick(true));\npercentageDiscount.innerText = await (0,_helpers_discount__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(tierName);\nmonthlyPriceAmount.innerText = await (0,_helpers_monthlyPrice__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(tierName);\nyearlyPriceAmount.innerText = await (0,_helpers_yearlyPrice__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(tierName);\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } }, 1);\n\n//# sourceURL=webpack://unlock/./assets/js/index.js?");
 
 /***/ }),
 
@@ -59,7 +103,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css
   \*******************************/
 /***/ (function(module) {
 
-eval("const subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal\n};\n\n//# sourceURL=webpack://unlock/./assets/js/settings.js?");
+eval("// import GhostContentAPI from \"@tryghost/content-api\";\nconst subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nconst contentKey = \"811441c13447357ec442df3b6d\";\nconst blogUrl = \"http://localhost:2368\";\n// export const api = new GhostContentAPI({\n//   url: \"http://localhost:2368\",\n//   key: \"811441c13447357ec442df3b6d\",\n//   version: \"v5.0\",\n// });\n\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal,\n  contentKey,\n  blogUrl\n};\n\n//# sourceURL=webpack://unlock/./assets/js/settings.js?");
 
 /***/ }),
 
@@ -70,7 +114,7 @@ eval("const subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   subscribe: function() { return /* binding */ subscribe; },\n/* harmony export */   subscribeUser: function() { return /* binding */ subscribeUser; }\n/* harmony export */ });\n/* harmony import */ var _unlock_protocol_paywall__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @unlock-protocol/paywall */ \"./node_modules/@unlock-protocol/paywall/dist/unlock.latest.es.js\");\n/* harmony import */ var _unlock_protocol_networks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @unlock-protocol/networks */ \"./node_modules/@unlock-protocol/networks/dist/index.mjs\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settings */ \"./assets/js/settings.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_settings__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\nfunction subscriptionSuccess() {\n  isProcessingSubscription(false);\n  $(\"#gh-unlock_success-modal\").addClass(\"is-active\");\n}\nfunction subscriptionError(txHash, data) {\n  isProcessingSubscription(false);\n  const errorModal = $(\"#gh-unlock_error-modal\");\n  const errorMsgDisplay = $(\"#error-msg\");\n  const errorMsg = data ? `${data.message.toUpperCase()}: contact support` : \"\";\n  const txHashSection = $(\"#error-txhash-section\");\n  const txHashText = $(\"#error-txhash\");\n  txHashSection.toggleClass(\"is-hidden\", !txHash);\n  txHashText.text(txHash);\n  errorMsgDisplay.text(errorMsg);\n  errorModal.addClass(\"is-active\");\n}\nfunction isProcessingSubscription() {\n  let isLoading = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;\n  $(\".loading-overlay\").toggleClass(\"is-hidden\", !isLoading);\n}\nasync function subscribeUser(txHash, email, lockAddress) {\n  try {\n    isProcessingSubscription(true);\n    const res = await fetch(`${_settings__WEBPACK_IMPORTED_MODULE_2__.unlockGhostApiBaseUrl}/api/subscribe`, {\n      method: \"POST\",\n      headers: {\n        \"Content-Type\": \"application/json\"\n      },\n      body: JSON.stringify({\n        hash: txHash,\n        email,\n        lockAddress\n      })\n    });\n    if (res.status !== 201) {\n      const data = await res.json();\n      subscriptionError(txHash, data);\n    } else {\n      subscriptionSuccess();\n    }\n  } catch (e) {\n    console.log(\"ERR_SUBSCRIBING_USER\", e);\n  }\n}\nasync function subscribe(tierId) {\n  let isYearly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n  try {\n    const result = await fetch(`${_settings__WEBPACK_IMPORTED_MODULE_2__.unlockGhostApiBaseUrl}/api/tier/get?tierId=${tierId}`);\n    const data = await result.json();\n    const {\n      name,\n      monthlyLockAddress,\n      yearlyLockAddress,\n      network\n    } = data;\n    const lockAddress = isYearly ? yearlyLockAddress : monthlyLockAddress;\n    const locks = {\n      [lockAddress]: {\n        network,\n        name,\n        emailRequired: true\n      }\n    };\n    const paywallConfig = {\n      network,\n      pessimistic: true,\n      locks,\n      referrer: \"0xCA7632327567796e51920F6b16373e92c7823854\",\n      persistentCheckout: false\n    };\n    const paywall = new _unlock_protocol_paywall__WEBPACK_IMPORTED_MODULE_0__.Paywall(_unlock_protocol_networks__WEBPACK_IMPORTED_MODULE_1__.networks);\n    paywall.setPaywallConfig(paywallConfig);\n    // const response = await paywall.loadCheckoutModal(paywallConfig);\n    const response = await paywall.loadCheckoutModal();\n    console.log(\"response@checkout::\", response);\n  } catch (e) {\n    console.log(\"SUBSCRIBE_ERR::\", e.message);\n    subscriptionError(\"\", e);\n  } finally {\n    _settings__WEBPACK_IMPORTED_MODULE_2__.subscribeBtn.classList.remove(\"is-loading\");\n  }\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (subscribe);\n\n//# sourceURL=webpack://unlock/./assets/js/subscribe.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   subscribe: function() { return /* binding */ subscribe; },\n/* harmony export */   subscribeUser: function() { return /* binding */ subscribeUser; }\n/* harmony export */ });\n/* harmony import */ var _unlock_protocol_paywall__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @unlock-protocol/paywall */ \"./node_modules/@unlock-protocol/paywall/dist/unlock.latest.es.js\");\n/* harmony import */ var _unlock_protocol_networks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @unlock-protocol/networks */ \"./node_modules/@unlock-protocol/networks/dist/index.mjs\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./settings */ \"./assets/js/settings.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_settings__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\nfunction subscriptionSuccess() {\n  isProcessingSubscription(false);\n  $(\"#gh-unlock_success-modal\").addClass(\"is-active\");\n}\nfunction subscriptionError(txHash, data) {\n  isProcessingSubscription(false);\n  const errorModal = $(\"#gh-unlock_error-modal\");\n  const errorMsgDisplay = $(\"#error-msg\");\n  const errorMsg = data ? `${data.message.toUpperCase()}: contact support` : \"\";\n  const txHashSection = $(\"#error-txhash-section\");\n  const txHashText = $(\"#error-txhash\");\n  txHashSection.toggleClass(\"is-hidden\", !txHash);\n  txHashText.text(txHash);\n  errorMsgDisplay.text(errorMsg);\n  errorModal.addClass(\"is-active\");\n}\nfunction isProcessingSubscription() {\n  let isLoading = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;\n  $(\".loading-overlay\").toggleClass(\"is-hidden\", !isLoading);\n}\nasync function subscribeUser(txHash, email, lockAddress) {\n  try {\n    isProcessingSubscription(true);\n    const res = await fetch(`${_settings__WEBPACK_IMPORTED_MODULE_2__.unlockGhostApiBaseUrl}/api/subscribe`, {\n      method: \"POST\",\n      headers: {\n        \"Content-Type\": \"application/json\"\n      },\n      body: JSON.stringify({\n        hash: txHash,\n        email,\n        lockAddress\n      })\n    });\n    if (res.status !== 201) {\n      const data = await res.json();\n      subscriptionError(txHash, data);\n    } else {\n      subscriptionSuccess();\n    }\n  } catch (e) {\n    console.log(\"ERR_SUBSCRIBING_USER\", e);\n  }\n}\nasync function subscribe(tierId) {\n  let isYearly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;\n  try {\n    const result = await fetch(`${_settings__WEBPACK_IMPORTED_MODULE_2__.unlockGhostApiBaseUrl}/api/tier/get?tierId=${tierId}`);\n    const data = await result.json();\n    const {\n      name,\n      monthlyLockAddress,\n      yearlyLockAddress,\n      network\n    } = data;\n    const lockAddress = isYearly ? yearlyLockAddress : monthlyLockAddress;\n    const locks = {\n      [lockAddress]: {\n        network,\n        name,\n        emailRequired: true\n      }\n    };\n    const paywallConfig = {\n      network,\n      pessimistic: true,\n      locks,\n      referrer: \"0xCA7632327567796e51920F6b16373e92c7823854\",\n      persistentCheckout: false\n    };\n    const paywall = new _unlock_protocol_paywall__WEBPACK_IMPORTED_MODULE_0__.Paywall(_unlock_protocol_networks__WEBPACK_IMPORTED_MODULE_1__.networks);\n    paywall.setPaywallConfig(paywallConfig);\n    const response = await paywall.loadCheckoutModal();\n    console.log(\"response@checkout::\", response);\n  } catch (e) {\n    console.log(\"SUBSCRIBE_ERR::\", e.message);\n    subscriptionError(\"\", e);\n  } finally {\n    _settings__WEBPACK_IMPORTED_MODULE_2__.subscribeBtn.classList.remove(\"is-loading\");\n  }\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (subscribe);\n\n//# sourceURL=webpack://unlock/./assets/js/subscribe.js?");
 
 /***/ }),
 
@@ -233,6 +277,75 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/async module */
+/******/ 	!function() {
+/******/ 		var webpackQueues = typeof Symbol === "function" ? Symbol("webpack queues") : "__webpack_queues__";
+/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
+/******/ 		var webpackError = typeof Symbol === "function" ? Symbol("webpack error") : "__webpack_error__";
+/******/ 		var resolveQueue = function(queue) {
+/******/ 			if(queue && !queue.d) {
+/******/ 				queue.d = 1;
+/******/ 				queue.forEach(function(fn) { fn.r--; });
+/******/ 				queue.forEach(function(fn) { fn.r-- ? fn.r++ : fn(); });
+/******/ 			}
+/******/ 		}
+/******/ 		var wrapDeps = function(deps) { return deps.map(function(dep) {
+/******/ 			if(dep !== null && typeof dep === "object") {
+/******/ 				if(dep[webpackQueues]) return dep;
+/******/ 				if(dep.then) {
+/******/ 					var queue = [];
+/******/ 					queue.d = 0;
+/******/ 					dep.then(function(r) {
+/******/ 						obj[webpackExports] = r;
+/******/ 						resolveQueue(queue);
+/******/ 					}, function(e) {
+/******/ 						obj[webpackError] = e;
+/******/ 						resolveQueue(queue);
+/******/ 					});
+/******/ 					var obj = {};
+/******/ 					obj[webpackQueues] = function(fn) { fn(queue); };
+/******/ 					return obj;
+/******/ 				}
+/******/ 			}
+/******/ 			var ret = {};
+/******/ 			ret[webpackQueues] = function() {};
+/******/ 			ret[webpackExports] = dep;
+/******/ 			return ret;
+/******/ 		}); };
+/******/ 		__webpack_require__.a = function(module, body, hasAwait) {
+/******/ 			var queue;
+/******/ 			hasAwait && ((queue = []).d = 1);
+/******/ 			var depQueues = new Set();
+/******/ 			var exports = module.exports;
+/******/ 			var currentDeps;
+/******/ 			var outerResolve;
+/******/ 			var reject;
+/******/ 			var promise = new Promise(function(resolve, rej) {
+/******/ 				reject = rej;
+/******/ 				outerResolve = resolve;
+/******/ 			});
+/******/ 			promise[webpackExports] = exports;
+/******/ 			promise[webpackQueues] = function(fn) { queue && fn(queue), depQueues.forEach(fn), promise["catch"](function() {}); };
+/******/ 			module.exports = promise;
+/******/ 			body(function(deps) {
+/******/ 				currentDeps = wrapDeps(deps);
+/******/ 				var fn;
+/******/ 				var getResult = function() { return currentDeps.map(function(d) {
+/******/ 					if(d[webpackError]) throw d[webpackError];
+/******/ 					return d[webpackExports];
+/******/ 				}); }
+/******/ 				var promise = new Promise(function(resolve) {
+/******/ 					fn = function() { resolve(getResult); };
+/******/ 					fn.r = 0;
+/******/ 					var fnQueue = function(q) { q !== queue && !depQueues.has(q) && (depQueues.add(q), q && !q.d && (fn.r++, q.push(fn))); };
+/******/ 					currentDeps.map(function(dep) { dep[webpackQueues](fnQueue); });
+/******/ 				});
+/******/ 				return fn.r ? promise : getResult();
+/******/ 			}, function(err) { (err ? reject(promise[webpackError] = err) : outerResolve(exports)), resolveQueue(queue); });
+/******/ 			queue && (queue.d = 0);
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	!function() {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules

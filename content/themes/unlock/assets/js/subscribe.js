@@ -75,7 +75,6 @@ export async function subscribe(tierId, isYearly = false) {
 
     const paywall = new Paywall(networks);
     paywall.setPaywallConfig(paywallConfig);
-    // const response = await paywall.loadCheckoutModal(paywallConfig);
     const response = await paywall.loadCheckoutModal();
     console.log("response@checkout::", response);
   } catch (e) {

@@ -10,7 +10,7 @@
 
   <div class="modal-content ">
     <div class="box p-6 has-text-centered">
-      <h1 class="is-size-1 mb-5  is-capitalized" id="tier-heading" data-tier="{{tierId}}">{{tiers}}</h1>
+      <h1 class="is-size-1 mb-5  is-capitalized" id="tier-heading">{{tiers}}</h1>
       <h3 class="is-size-2 mb-5 plans-heading">Plans</h3>
       <div class="plans-card-box">
         <div class="plans-card">
@@ -20,7 +20,7 @@
           </p>
 
           <p class="price">
-           <span class="amount">{{monthlyPrice}}</span>/month
+           <span id="monthly-price-amount" class="amount">0</span>/month
           </p>
 
           <button id="subscribe-monthly" class="button is-large is-fullwidth is-dark subscribe-btn" >Subscribe</button> 
@@ -31,7 +31,7 @@
             Access to every paywalled post and other benefits for {{tiers suffix=""}} members. Thanks for your support!
           </p>
           <p class="price">
-            <span class="amount">{{yearlyPrice}}</span>/year <span class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold discount">%{{discount}} discount</span>
+            <span id="yearly-price-amount" class="amount">0</span>/year <span id="discount" class="tag is-rounded is-large has-background-grey-light has-text-black has-text-weight-semibold discount">%0 discount</span>
           </p>
           <button id="subscribe-yearly" class="button is-large is-fullwidth is-dark subscribe-btn">Subscribe</button> 
         </div>

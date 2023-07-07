@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ (function(module) {
 
-eval("const subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal\n};\n\n//# sourceURL=webpack://unlock/./assets/js/settings.js?");
+eval("// import GhostContentAPI from \"@tryghost/content-api\";\nconst subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nconst contentKey = \"811441c13447357ec442df3b6d\";\nconst blogUrl = \"http://localhost:2368\";\n// export const api = new GhostContentAPI({\n//   url: \"http://localhost:2368\",\n//   key: \"811441c13447357ec442df3b6d\",\n//   version: \"v5.0\",\n// });\n\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal,\n  contentKey,\n  blogUrl\n};\n\n//# sourceURL=webpack://unlock/./assets/js/settings.js?");
 
 /***/ })
 
