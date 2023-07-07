@@ -9,24 +9,24 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./assets/js/modals-controller.js":
-/*!****************************************!*\
-  !*** ./assets/js/modals-controller.js ***!
-  \****************************************/
+/***/ "./assets/js/unlock/modals-controller.js":
+/*!***********************************************!*\
+  !*** ./assets/js/unlock/modals-controller.js ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   closeModal: function() { return /* binding */ closeModal; }\n/* harmony export */ });\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ \"./assets/js/settings.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_settings__WEBPACK_IMPORTED_MODULE_0__);\n\nfunction closeModal($el) {\n  _settings__WEBPACK_IMPORTED_MODULE_0__.subscribeBtn.forEach(btn => {\n    btn.classList.remove(\"is-loading\");\n  });\n  $el.classList.remove(\"is-active\");\n}\nfunction openModal($el) {\n  $el.classList.add(\"is-active\");\n}\nfunction fadeInModal(modal) {\n  modal.classList.add(\"gh-unlock-fade-in\");\n}\nfunction fadeOutModal(modal) {\n  modal.classList.add(\"gh-unlock-fade-out\");\n  setTimeout(function () {\n    modal.classList.remove(\"gh-unlock-fade-out\");\n  }, 300); // Match the duration of the fade-out animation\n}\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  function closeSubscriptionModal($el) {\n    closeModal($el);\n    location.reload();\n  }\n  function closeAllModals() {\n    (document.querySelectorAll(\".modal\") || []).forEach($modal => {\n      fadeOutModal($modal);\n      closeModal($modal);\n    });\n  }\n\n  /* Function to bind modals to trigger element */\n  function bindModalEvents(selector, modalId) {\n    (document.querySelectorAll(selector) || []).forEach($trigger => {\n      const $target = document.getElementById(modalId);\n      $trigger.addEventListener(\"click\", e => {\n        e.preventDefault();\n        fadeInModal($target);\n        openModal($target);\n      });\n    });\n  }\n\n  /* open plans modal i.e binds plans modal to modal trigger*/\n  bindModalEvents(\".plans-modal-trigger\", \"gh-unlock_plans-modal\");\n\n  /*close plans modal */\n  document.querySelectorAll(\".plans-modal-background, .plans-modal-close\").forEach($close => {\n    const $target = $close.closest(\".gh-unlock_plans-modal\");\n    $close.addEventListener(\"click\", () => {\n      closeModal($target);\n    });\n  });\n\n  /*close Tx modal */\n  document.querySelectorAll(\".tx-modal-background, .tx-modal-close\").forEach($close => {\n    const $target = $close.closest(\".gh-unlock_tx-modal\");\n    $close.addEventListener(\"click\", () => {\n      closeSubscriptionModal($target);\n    });\n  });\n\n  /*close all modals when esc key is pressed */\n  document.addEventListener(\"keydown\", event => {\n    const e = event || window.event;\n    if (e.keyCode === 27) {\n      closeAllModals();\n    }\n  });\n});\n\n//# sourceURL=webpack://unlock/./assets/js/modals-controller.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   closeModal: function() { return /* binding */ closeModal; }\n/* harmony export */ });\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ \"./assets/js/unlock/settings.js\");\n/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_settings__WEBPACK_IMPORTED_MODULE_0__);\n\nfunction closeModal($el) {\n  _settings__WEBPACK_IMPORTED_MODULE_0__.subscribeBtn.forEach(btn => {\n    btn.classList.remove(\"is-loading\");\n  });\n  $el.classList.remove(\"is-active\");\n}\nfunction openModal($el) {\n  $el.classList.add(\"is-active\");\n}\nfunction fadeInModal(modal) {\n  modal.classList.add(\"gh-unlock-fade-in\");\n}\nfunction fadeOutModal(modal) {\n  modal.classList.add(\"gh-unlock-fade-out\");\n  setTimeout(function () {\n    modal.classList.remove(\"gh-unlock-fade-out\");\n  }, 300); // Match the duration of the fade-out animation\n}\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  function closeSubscriptionModal($el) {\n    closeModal($el);\n    location.reload();\n  }\n  function closeAllModals() {\n    (document.querySelectorAll(\".modal\") || []).forEach($modal => {\n      fadeOutModal($modal);\n      closeModal($modal);\n    });\n  }\n\n  /* Function to bind modals to trigger element */\n  function bindModalEvents(selector, modalId) {\n    (document.querySelectorAll(selector) || []).forEach($trigger => {\n      const $target = document.getElementById(modalId);\n      $trigger.addEventListener(\"click\", e => {\n        e.preventDefault();\n        fadeInModal($target);\n        openModal($target);\n      });\n    });\n  }\n\n  /* open plans modal i.e binds plans modal to modal trigger*/\n  bindModalEvents(\".plans-modal-trigger\", \"gh-unlock_plans-modal\");\n\n  /*close plans modal */\n  document.querySelectorAll(\".plans-modal-background, .plans-modal-close\").forEach($close => {\n    const $target = $close.closest(\".gh-unlock_plans-modal\");\n    $close.addEventListener(\"click\", () => {\n      closeModal($target);\n    });\n  });\n\n  /*close Tx modal */\n  document.querySelectorAll(\".tx-modal-background, .tx-modal-close\").forEach($close => {\n    const $target = $close.closest(\".gh-unlock_tx-modal\");\n    $close.addEventListener(\"click\", () => {\n      closeSubscriptionModal($target);\n    });\n  });\n\n  /*close all modals when esc key is pressed */\n  document.addEventListener(\"keydown\", event => {\n    const e = event || window.event;\n    if (e.keyCode === 27) {\n      closeAllModals();\n    }\n  });\n});\n\n//# sourceURL=webpack://unlock/./assets/js/unlock/modals-controller.js?");
 
 /***/ }),
 
-/***/ "./assets/js/settings.js":
-/*!*******************************!*\
-  !*** ./assets/js/settings.js ***!
-  \*******************************/
+/***/ "./assets/js/unlock/settings.js":
+/*!**************************************!*\
+  !*** ./assets/js/unlock/settings.js ***!
+  \**************************************/
 /***/ (function(module) {
 
-eval("// import GhostContentAPI from \"@tryghost/content-api\";\nconst subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nconst contentKey = \"811441c13447357ec442df3b6d\";\nconst blogUrl = \"http://localhost:2368\";\n// export const api = new GhostContentAPI({\n//   url: \"http://localhost:2368\",\n//   key: \"811441c13447357ec442df3b6d\",\n//   version: \"v5.0\",\n// });\n\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal,\n  contentKey,\n  blogUrl\n};\n\n//# sourceURL=webpack://unlock/./assets/js/settings.js?");
+eval("const subscribeBtn = document.querySelectorAll(\".subscribe-btn\");\nconst plansModal = document.getElementById(\"gh-unlock_plans-modal\");\nconst unlockGhostApiBaseUrl = \"http://localhost:3000\";\nconst contentKey = \"811441c13447357ec442df3b6d\";\nconst blogUrl = \"http://localhost:2368\";\nmodule.exports = {\n  subscribeBtn,\n  unlockGhostApiBaseUrl,\n  plansModal,\n  contentKey,\n  blogUrl\n};\n\n//# sourceURL=webpack://unlock/./assets/js/unlock/settings.js?");
 
 /***/ })
 
@@ -102,7 +102,7 @@ eval("// import GhostContentAPI from \"@tryghost/content-api\";\nconst subscribe
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./assets/js/modals-controller.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./assets/js/unlock/modals-controller.js");
 /******/ 	
 /******/ })()
 ;

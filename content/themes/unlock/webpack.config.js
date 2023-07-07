@@ -3,9 +3,9 @@ const path = require("path");
 module.exports = {
   mode: "development",
   entry: {
-    bundle: path.resolve(__dirname, "./assets/js/index.js"),
-    events: path.resolve(__dirname, "./assets/js/events.js"),
-    modals: path.resolve(__dirname, "./assets/js/modals-controller.js"),
+    bundle: path.resolve(__dirname, "./assets/js/unlock/index.js"),
+    events: path.resolve(__dirname, "./assets/js/unlock/events.js"),
+    modals: path.resolve(__dirname, "./assets/js/unlock/modals-controller.js"),
   },
   output: {
     path: path.resolve(__dirname, "./assets/built"),

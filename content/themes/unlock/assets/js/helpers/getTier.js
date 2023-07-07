@@ -1,5 +1,5 @@
 import GhostContentAPI from "@tryghost/content-api";
-import { contentKey, blogUrl } from "../settings";
+import { contentKey, blogUrl } from "../unlock/settings";
 
 const api = new GhostContentAPI({
   url: blogUrl,

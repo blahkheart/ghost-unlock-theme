@@ -1,9 +1,9 @@
-import "../css/modals.scss";
+import "../../css/modals.scss";
 import subscribe from "./subscribe";
-import discount from "./helpers/discount";
-import yearlyPrice from "./helpers/yearlyPrice";
-import monthlyPrice from "./helpers/monthlyPrice";
-import tierId from "./helpers/tierId";
+import discount from "../helpers/discount";
+import yearlyPrice from "../helpers/yearlyPrice";
+import monthlyPrice from "../helpers/monthlyPrice";
+import tierId from "../helpers/tierId";
 
 const tierName = document.getElementById("tier-heading").innerHTML;
 const _tierId = await tierId(tierName);
